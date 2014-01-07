@@ -1,0 +1,7 @@
+/Plack-App-GrowthForecast-SafeProxy-*
+/.build
+/_build*
+/Build
+MYMETA.*
+!META.json
+/.prove
