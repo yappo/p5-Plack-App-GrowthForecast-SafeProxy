@@ -12,7 +12,7 @@ use LWP::UserAgent;
 sub prepare_app {
     my $self = shift;
 
-    my $ua = LWP::UserAgent->new( agent => "Plack::App::GrowthForecastProxy/$Plack::App::GrowthForecastProxy::VERSION" );
+    my $ua = LWP::UserAgent->new( agent => "Plack::App::GrowthForecast::SafeProxy/$Plack::App::GrowthForecast::SafeProxy::VERSION" );
     $self->_ua($ua);
 }
 
@@ -60,7 +60,7 @@ sub call {
         $content =~ s{<a href="$base_url.+?>(.+?)</a>}{$1}g;
         $content =~ s{<a href="#.+?>(.+?)</a>}{$1}g;
 
-        return [200, [], [$content] ];
+        return [200, ['Content-Type', $res->header('content-type')], [$content] ];
     } elsif ($path =~ m{\A/_graph/(.+)\z}) {
         # graph image
         my $new_path = join '?', $1, $query;
